@@ -1,0 +1,79 @@
+section#subscribe(class='container w-100 home-page-section active')
+    div(class='row')
+        div#form-main(class='col-12 col-lg-10 col-xl-8 mx-auto panel')
+            div(class='p-4')
+                header 
+                    h2(class='special-font text-center') Subscribe to Our Ministry Updates!
+                    hr
+                //- Form message
+                if errors
+                    div#form-message(class='form-message err show')
+                        p(class='form-message-title') Oops...
+                        ul
+                            for err in errors
+                                li= err.error
+                else if success
+                    div#form-message(class='form-message succ show')
+                        p(class='form-message-title')= success
+                else
+                    div#form-message(class='form-message' )
+                //- Form
+                form#sub-form(class='w-100 h-100' action='/connect/subscribe/y' method='POST' enctype="multipart/form-data" data-target='/connect/subscribe/n' data-goal='/home' onsubmit='submitForm(event, this, true)')
+                    div(class='row mb-2')
+                        div(class='form-item col-6 req')
+                            label(class='input-label' for='First-Name') First Name:
+                            input(class='input-field' type='text' value=fields['First-Name'] name='First-Name' tabindex='1')
+                        div(class='form-item col-6 req')
+                            label(class='input-label' for='Last-Name') Last Name:
+                            input(class='input-field' type='text' value=fields['Last-Name'] name='Last-Name' tabindex='2')
+
+                    div(class='row mt-2')
+                        div(class='form-item req')
+                            label(class='input-label' for='Email') Email:
+                            input(class='input-field' type='text' value=fields['Email'] name='Email' tabindex='3')
+                    br
+                    
+                    div(class='row mt-2')
+                        div(class='form-item')
+                            label(class='input-label' for='Phone-Number') Phone Number:
+                            input(class='input-field' type='tel' format='123-456-7890' placeholder='(xxx-xxx-xxxx) Optional' value=fields['Phone-Number'] name='Phone-Number' tabindex='4')
+                    br
+
+                    div(class='row mt-2')
+                        div(class='form-item')
+                            label(class='input-label' for='Address-Line-1') Address Line 1:
+                            input(class='input-field' type='text' placeholder='Optional' value=fields['Address-Line-1'] name='Address-Line-1' tabindex='5')
+                        div(class='form-item mt-2')
+                            label(class='input-label' for='Address-Line-2') Address Line 2:
+                            input(class='input-field' type='text' placeholder='Optional' value=fields['Address-Line-2'] name='Address-Line-2' tabindex='6')
+                        div(class='form-item mt-2')
+                            label(class='input-label' for='City/Town') City/Town:
+                            input(class='input-field' type='text' placeholder='Optional' value=fields['City/Town'] name='City/Town' tabindex='7')
+                    
+                    div(class='row mt-2')
+                        div(class='form-item col-6')
+                            label(class='input-label' for='State') State:
+                            input(class='input-field' type='text' placeholder='Optional' value=fields['State'] name='State' tabindex='8')
+                        div(class='form-item col-6')
+                            label(class='input-label' for='Zip-Code') Zip Code:
+                            input(class='input-field' type='text' placeholder='Optional' value=fields['Zip-Code'] name='Zip-Code' tabindex='9')
+                    br
+                    
+                    div(class='row mt-2')
+                        div(class='form-item')
+                            label(class='input-label' for='Other-Contact-Info') Other Contact Info:
+                            input(class='input-field' type='text' placeholder='Optional (WhatsApp, etc.)' value=fields['Other-Contact-Info'] name='Other-Contact-Info' tabindex='10')
+                    br
+                    
+                    div(class='row mt-2')
+                        div(class='form-item')
+                            label(class='input-label' for='Message') Message:
+                            div(class='richEdit' data-name='Message' data-placeHolder='Optional' data-tab='11')
+                            textarea(id='Message' class='input-field' name='Message' tabindex='11')=fields['Message']
+                
+                    div(class='w-100 text-end panel-end')
+                        button#submit(class='btn btn-submit loader col-12 col-md-4' tabindex='12') Submit
+    script.
+        window.setTimeout(() => {
+            showCaptchaBadge()
+        }, 200)

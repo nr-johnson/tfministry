@@ -1,0 +1,17 @@
+div(class='col-12 col-md-8 mx-auto panel multiple')
+    div(class='p-4')
+        header
+            h2(class='special-font')= update.title
+            if update['Type']
+                h3
+                    if update['Type'] == 'Ministry'
+                        | Update from the Mission Field
+                    else
+                        | A Toliver Family Update
+            h3(class='update-country')= 'Location: ' + update['Location']
+        if update['Content']
+            section
+                | !{update['Content']}
+        section
+            div(class='gallery-main')
+                include gallery.pug

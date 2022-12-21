@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  section#error(class='container')
+    div(class='row')
+      div(class='col-12')
+        h1= message
+        h2= error.status
+        div #{error.stack}

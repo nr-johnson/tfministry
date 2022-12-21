@@ -1,0 +1,38 @@
+extends layout
+
+block head
+  link(rel="image_src" href='https://res.cloudinary.com/tfministry/image/upload/v1648655098/site-images/tfm-meta_a6hakq.jpg')
+  meta(property="og:image" content="https://res.cloudinary.com/tfministry/image/upload/v1648655098/site-images/tfm-meta_a6hakq.jpg")
+  if title
+    meta(property='title' content=title)
+    meta(property='og:title' content=title)
+  else
+    meta(property='title' content="TFM")
+    meta(property='og:title' content="TFM")
+  if pageDescription
+    meta(property='description' content=pageDescription)
+    meta(property='og:description' content=pageDescription)
+  else
+    meta(property='description' content="Toliver Family Ministry")
+    meta(property='og:description' content="Toliver Family Ministry")
+  
+
+block content
+  if target == 'home' || !target
+    include homePages/home.pug
+    
+  if target == 'updates'
+    include homePages/updates.pug
+    
+  if target == 'subscribe'
+    include homePages/subscribe.pug
+
+  if target == 'training'
+    include homePages/training.pug
+  
+
+  if user
+    if target == 'admin'
+      section#admin(class='container home-page-section active')
+        include homePages/admin.pug
+

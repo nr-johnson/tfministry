@@ -1,0 +1,75 @@
+section#home(class='container w-100 home-page-section active')
+  div(class='row w-100 mx-auto pt-4 justify-content-center px-md-4')
+      section(class='col-md-7 col-lg-6 order-2 order-md-1')
+        div(class='panel multiple p-md-4')
+          header
+            h2(class='special-font')= introData['Title']
+          div
+            | !{introData['Content']}
+      
+      aside(class='side-bar col-md-5 col-lg-4 order-1 order-md-2')
+        div(class='panel multiple p-md-4')
+          if introData['Video-Code']
+            section
+              header
+                h2(class='special-font') Intro Video
+              div(class='vid-container')
+                a(href="#feature-vid-modal" data-target="feature-vid-modal" class='vid-link' title="Watch Video" onclick='toggleModal(event, this, true)')
+                  figure(class='vid-frame' style='')
+                    img(class='vid-img' src="//img.youtube.com/vi/" + introData['Video-Code'] + '/maxresdefault.jpg')
+                div#feature-vid-modal(class='vid-modal')
+                  a(href="#" class='vid-modal-back' onclick='toggleModal(event, this, false)')
+                  div(class="vid-modal-content")
+                    div(class="vid-iFrame")
+                      iframe(src='https://www.youtube.com/embed/' + introData['Video-Code'] frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+              header(class='video-title mt-2')
+                a(href='https://www.youtube.com/watch?v=' + introData['Video-Code'] title='Watch on Youtube' target='_blank')
+                    h3= introData['Video-Title']
+                        img(class='link-icon' src='/images/bootstrap/box-arrow-up-right.svg' alt="Bootstrap-box-arrow-up-right")
+                a(href='https://www.youtube.com/channel/UC-IOvgPzpAmUECjKvwEHlEw' class='video-channel-link' target='_blank') Visit Our Youtube Channel
+                    img(class='link-icon-small' src='/images/bootstrap/box-arrow-up-right.svg' alt="Bootstrap-box-arrow-up-right")
+                hr(class='d-md-none')
+          section
+            hr
+            div(class='text-center')
+                a(href='https://globaltrainingnetwork.org/who/steward-and-rachael-toliver' target='__blank')
+                  img(src='/images/gtn_web_logo.png' class='gtn-logo')
+                  p(class='mt-2') You can also visit our page on the Global Training Network website!
+                    img(class='link-icon' src='/images/bootstrap/box-arrow-up-right.svg' alt="Bootstrap-box-arrow-up-right")
+            hr
+          if pages.some(page => page.id == 'training')
+            section(class='row w-100 mx-auto mt-4')
+              div(class='col-12 col-md-10 mx-auto')
+                a(class='btn w-100' href='/training' onclick='pageChange(event, "training")') Sign Up for Training
+
+
+  section(class='row w-100 mx-auto mt-2 pb-1 justify-content-center px-md-4')
+    div(class='col-12 col-lg-10')
+      div(class='panel multiple p-md-4')
+        hr
+        div(class='col-12 col-md-10 mx-auto')
+          a(class='btn btn-submit w-100' href='/subscribe' onclick='pageChange(event, "subscribe")') Subscribe to Our Ministry Updates!
+        hr
+  
+  if update
+    article(class='row w-100 mx-auto mt-2 pb-1 justify-content-center px-md-4')
+      div(class='col-12 col-lg-10')
+        div(class='panel multiple p-md-4')
+            header
+                h2 Our Latest Update!
+                hr
+                h2(class='special-font')= update.title
+                h3(class='update-country')= 'Location: ' + update['Location']
+            if update['Content']
+                section
+                    | !{update['Content']}
+            section
+                div(class='gallery-main')
+                    include ../templates/gallery.pug
+    
+    section(class='row w-100 mx-auto mt-2 pb-1 justify-content-center px-md-4')
+      div(class='col-12 col-lg-10')
+        div(class='panel multiple p-md-4')
+          div(class='col-12 col-md-10 mx-auto')
+            a(class='btn w-100' href='/updates' onclick='pageChange(event, "updates")') View All Updates
+  script(src="https://www.youtube.com/iframe_api")

@@ -1,0 +1,7 @@
+section#error(class='container')
+  div(class='row')
+    div(class='col-12')
+      h1= message
+      p Well this is awkward... Looks like something isn't working. Please contact the site manager if the issue persists.
+      h2= error.status
+      div #{error.stack}

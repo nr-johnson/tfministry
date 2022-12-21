@@ -1,0 +1,28 @@
+-let mobCls = 'links-' + pages.length
+nav#mobileNav(class='mobile-nav d-md-none ' + mobCls)
+    ul 
+        if target && pages.some(page => page.id == target)
+            for link in pages 
+                if link.id == target
+                    li(data-page=link.id class='mobile-nav-item active')
+                        a(href=link.url)
+                            span(class='mobile-nav-icon')
+                                img(src='/images/bootstrap/' + link.icon + '.svg' alt="Bootstrap-" + link.icon)
+                            span(class='mobile-nav-text')=link.name
+
+                else
+                    li(data-page=link.id class='mobile-nav-item')
+                        a(href=link.url)
+                            span(class='mobile-nav-icon')
+                                img(src='/images/bootstrap/' + link.icon + '.svg' alt="Bootstrap-" + link.icon)
+                            span(class='mobile-nav-text')=link.name
+            div(class='mobile-nav-selector')
+                div(class='mobile-nav-selector-back')
+        else
+            for link in pages 
+                li(data-page=link.id class='mobile-nav-item link')
+                    a(href=link.url)
+                        span(class='mobile-nav-icon')
+                            img(src='/images/bootstrap/' + link.icon + '.svg' alt="Bootstrap-" + link.icon)
+                        span(class='mobile-nav-text')=link.name
+            

@@ -1,0 +1,22 @@
+extends ../../layout
+
+
+block head
+
+block content
+    section(class='container')
+        div(class='row main-row pt-4 w-100')
+            div(class='col-md-10 mx-auto px-4')
+                
+                header(class='row')
+                    div(class='col')
+                        h2(class='d-inline') Updates
+                    div(class='col text-end')
+                        a(class='btn my-2' href='/admin/new/update') Add New
+                    hr
+                    div(class='col-12 update-links-column')
+                        for update in updates
+                            p
+                                a(href='/admin/edit/update/' + update._id)= update['Date']
+                                if !update['Publish']
+                                    |  (Draft)

@@ -1,0 +1,48 @@
+section#updates(class='container w-100 home-page-section active mt-3')
+    header 
+        h2(class='special-font text-center') Ministry Updates 
+        hr
+    if updates.length > 0
+        div(class='row')
+            div(class='col-12 col-md-8 mx-auto text-end')
+                a(href='#updateArchive' onclick='openArchive(event)') View Updates Archive
+        section#updates
+            for update in updates.slice(0,5)
+                article(class='row mt-2')
+                    div(class='col-12 col-md-8 mx-auto panel multiple')
+                        div(class='p-4')
+                            header
+                                a(class='update-link' href=`/update/${update._id}`)
+                                    h2(class='special-font')= update.title
+                                if update['Type']
+                                    h3(class='update-country')
+                                        if update['Type'] == 'Ministry'
+                                            | An Update from the Field
+                                        else
+                                            | A Toliver Family Update
+                                h3(class='update-country')= 'Location: ' + update['Location']
+                            if update['Content']
+                                section
+                                    | !{update['Content']}
+                            section
+                                div(class='gallery-main')
+                                    include ../templates/gallery.pug
+        
+        section(class='row mt-2')
+            div(class='col-12 col-md-8 mx-auto panel multiple')
+                div(class='p-4')
+                    a(class='btn loader w-100' href='#updateArchive' onclick='loadMoreUpdates(event, this)') Load More Updates
+        
+    else
+        div(class='row')
+            div(class='col-12 col-md-8')
+                p No updates have been added... Yet.
+    
+    aside#updateArchive(class='archive-list')
+        a(href='#' class='archive-list-back' onclick='closeArchive(event)')
+        div(class='archive-list-box')
+            for update in updates
+                div(class='archive-list-item')
+                    a(href='/update/' + update._id)= update['title']
+        
+        

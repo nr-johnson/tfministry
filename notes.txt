@@ -1,0 +1,49 @@
+//Add reCaptcha to forms
+XIntegrate MailChimp ??
+//Add Meta tags to each page
+//Run IP test in Huroku
+//Update email info to Stewards
+//Configure reCaptcha to stewards
+//Fix Gallery when selecting images from thumbnail (latest images overlay previous and do not fade)
+//Fix bug with back button when slide show is open.
+//Fix update sorting
+//Ensure security
+
+//Create a gallery for Desktop and for mobile
+//Add latest update to home page
+
+//fix loader button
+//Figure out session storage
+//Fix update edit error message
+//Add update and intro forms to new structure
+
+Country code isn't from the country linked to while using VPN.
+
+Home page:
+    Intro paragraph with video
+    Newsletter sign up form
+    Latest/Featured/cycled update
+Updates page
+    List of updates sorted by date (set max with load more button)
+Training Sign Up page (Geo Restricted)
+    Intro video/slideshow
+    Intro paragraph
+    Training Sign up form
+    
+Login page
+Admin Page
+
+Updates:
+    Fields:
+        Date
+        Location
+        Photos with captions
+        Text box for update description
+
+
+    Self sorted by Date
+    People should not see specfic date only the quarter and year
+
+Also needs training sign up form (not visible in US or Canada)
+    Will have video or slideshow above form - needs to be changeable by admin
+    Will also need intro paragraph

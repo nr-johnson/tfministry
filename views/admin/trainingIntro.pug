@@ -1,0 +1,35 @@
+extends ../layout
+
+block head
+
+block content
+    section(class='container')
+        div(class='row')
+            div#form-main(class='col-md-8 mx-auto px-0 panel pt-4')
+                form(class='h-100 w-100' action='/admin/update-training/y' method="POST" enctype="multipart/form-data" data-target='/admin/update-training/n' data-goal='/admin' onsubmit='submitForm(event, this)')
+                    div(class='px-4')
+                        header
+                            h3 Edit Training Intro
+                            hr
+                        if errors
+                            div#form-message(class='form-message err show')
+                                p(class='form-message-title') Oops...
+                                ul
+                                    for err in errors
+                                        li= err.error
+                        else if success
+                            div#form-message(class='form-message succ show')
+                                p(class='form-message-title')= success
+                        else
+                            div#form-message(class='form-message' )
+
+                        div(class='form-item')
+                            label(class='input-label' for='Video-Code') Video Code
+                            input#Video-Code(class='input-field narrow' type='text' name='Video-Code' placeholder="Example: x8l1uWNBFUY (Optional)" value=introData['Video-Code'])
+                        div(class='form-item mt-2 req')
+                            label(class='input-label' for='Content') Content
+                            div#editor-container(class='richEdit' data-name='Content' data-placeHolder='Share your story.' data-tab='2' )
+                            input#Content(style='display: none;' data-req='true' type='text' name='Content' value=introData['Content'])
+                        
+                    div(class='w-100 panel-end text-end')
+                        button(class='btn btn-light loader col-12 col-md-4') Update

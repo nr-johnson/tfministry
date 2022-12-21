@@ -1,0 +1,48 @@
+
+extends layout
+
+block content
+    section(class='container p-0')
+        div(class='row w-100 mx-auto')
+            div#form-main(class='col-md-8 mx-auto panel')
+                div(class='p-4')
+                    header
+                        h2(class='special-font text-center') Contact Us
+                        hr
+                    //- Form message
+                    if errors
+                        div#form-message(class='form-message err show')
+                            p(class='form-message-title') Oops...
+                            ul
+                                for err in errors
+                                    li= err.error
+                    else if success
+                        div#form-message(class='form-message succ show')
+                            p(class='form-message-title')= success
+                    else
+                        div#form-message(class='form-message' )
+                    //- Form
+                    form#contactForm(action="/connect/contact/y" method='POST' enctype="multipart/form-data" data-target='/connect/contact/n' data-goal='/home' onsubmit='submitForm(event, this, true)')
+                        div(class='form-item req')
+                            label(for='Name' class='input-label') Name:
+                            input(type='text' class='input-field' name='Name' placeholder='i.e. John Doe' value=fields['Name'] tabindex='1')
+                        div(class='form-item mt-2 req')
+                            label(for='Email' class='input-label') Email:
+                            input(type='text' class='input-field' name='Email' placeholder='i.e. john.doe@site.com' value=fields['Email'] tabindex='2')
+                        div(class='form-item mt-2 req')
+                            label(for='Message' class='input-label') Message:
+                            div(class='richEdit' data-name='Message' data-placeHolder='How can we help?' data-tab='3')
+                            textarea(id='Message' class='input-field' name='Message' tabindex='3')=fields['Message']
+
+                        div(class='panel-end text-end')
+                            div(class='row w-100 mx-auto justify-content-end')
+                                div(class='col-12 col-md-3 p-0')
+                                    button(class='btn btn-submit loader w-100') Send
+    script.
+        window.setTimeout(() => {
+            showCaptchaBadge()
+        }, 200)
+    
+      
+                    
+                    

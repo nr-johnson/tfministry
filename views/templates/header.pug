@@ -1,0 +1,68 @@
+header#header(class='container-fluid')
+    section(class='row w-100 mx-auto justify-content-between')
+        div#brand(class='col-12 col-md-3 col-lg-6 h-100 position-relative')
+                figure(class='image-frame')
+                    a(href='/')
+                        img(src='/images/Logo.png')
+                div(class='d-none d-lg-block')
+                    a(href='/')
+                        h1(class='header-title d-none d-md-block') Toliver Family Ministry
+        -let cls = 'links-' + pages.length
+        nav(class='d-none d-md-flex col-8 col-lg-6 nav-parent ' + cls)
+            div(class='nav-main')
+                if target && pages.some(page => page.id == target)
+                    for link in pages
+                        if link.id == target
+                            a(class='nav-link active' data-page=link.id href=link.url)= link.name
+                        else
+                            a(class='nav-link' data-page=link.id href=link.url)= link.name
+                    div(class='nav-selector')
+                        div(class='nav-selector-back')
+                else
+                    for link in pages
+                        a(class='nav-link link' data-page=link.id href=link.url)= link.name
+            
+
+            //- if url
+            //-     if url == '/'
+            //-         a(class="nav-link active" href="/") Home
+            //-         a(class='nav-link' href='/updates') Updates
+            //-         a(class='nav-link' href='/signup') Signup
+            //-     else if url =='/signup'
+            //-         a(class="nav-link" href="/") Home
+            //-         a(class='nav-link' href='/updates') Updates
+            //-         a(class='nav-link active' href='/signup') Signup
+            //-     else if url == '/updates'
+            //-         a(class="nav-link" href="/") Home
+            //-         a(class='nav-link active' href='/updates') Updates
+            //-         a(class='nav-link' href='/signup') Signup
+            //-     else 
+            //-         a(class="nav-link" href="/") Home
+            //-         a(class='nav-link' href='/updates') Updates
+            //-         a(class='nav-link' href='/signup') Signup
+            //- else
+            //-     a(class="nav-link" href="/") Home
+            //- if user
+            //-     if url != '/admin' && url != '/admin/login'
+            //-         a(class='nav-link' href='/admin') Admin
+            //-     else
+            //-         a(class='nav-link open' href='/admin') Admin
+
+    //- div#menuMobile(class='d-md-none')
+    //-     div#mobileToggle(class='ml-3 d-inline' style='z-index: 1;')
+    //-         div#mobileBut(class="mobileMen" onclick="toggleMobileMenu()")
+    //-             div(class="bar1")
+    //-             div(class="bar2")
+    //-             div(class="bar3")
+    //-     div#mobileMenBox(class='hiddenMen')
+    //-         div#mobileMenBack(onclick='toggleMobileMenu()')
+    //-         div#mobileMenList
+    //-             div#mobileMenListItems
+    //-                 a(class='btn btn-light w-100 mt-2' href='/') Home
+    //-                 a(class='btn btn-light w-100 mt-2' href="/updates") Updates
+    //-                 a(class='btn btn-light w-100 mt-2' href="/form/signup") Signup
+
+    //-                 if user
+    //-                     a(class='btn btn-light w-100 mt-2' href="/admin") Admin
+
+    

@@ -1,0 +1,84 @@
+extends ../../layout
+
+block head
+
+block content
+    template#imgSetTemplate
+        div(class='container-fluid image-set mb-2')
+            span(class='input-label')
+            div(class='form-item mt-2')
+                label(class='input-label') Caption:
+                    p(class='small-text my-1') Optimal caption length is 185 characters (inlcuding spaces).
+                div(class='richEdit' data-placeHolder="What's Happening here?")
+                input(style='display: none;' type='text')
+            div(class='text-end')
+                
+            div(class='form-item form-item-dark req mt-4')
+                div(class='mt-2')
+                label
+                    div(class='btn btn-light') Add Image to set
+                    input(class='d-none' type='file' onchange='addPhotosToUpdateForm(this)')
+                div
+                    a(class='btn btn-caution mt-2' onclick='removeImageSet(this.parentNode.parentNode.parentNode)') Remove Set
+            hr
+    template#imgTemplate
+        div(class='container-fluid p-0 update-form-img')
+            p(class='update-form-img-name')
+            div(class='row w-100 mx-auto p-0')
+                div(class='col-12 update-form-img-cont')
+                    img
+            div(class='text-end')
+                button(class='btn btn-caution my-2' onclick='removeUpdateImage(this.parentNode.parentNode); return false;') Remove Image
+            hr
+    
+    section(class='container')
+        div(class='row main-row')
+            div#form-main(class='col-md-8 mx-auto px-0 panel')
+                form#update-form(name="updateForm" class='h-100 w-100' action='/admin/new/update/y' method="POST" enctype="multipart/form-data" data-target='/admin/new/update/n' data-goal='/admin/updates' onsubmit='submitForm(event, this)')
+                    div(class='p-4')
+                        header
+                            h2 Add new Update
+                        div#form-message(class='form-message')
+                        div(class='form-item req col-12 col-md-4 col-lg-3')
+                            label(class='input-label' for='type') Update Type:
+                            br
+                            select#Type(class='input-sel' name='Type' value='none' tabindex='1')
+                                option(selected disabled value='none') --- Select Type ---
+                                option Ministry
+                                option Family 
+                        div(class='form-item req col-6 col-md-4 col-lg-3')
+                            label(class='input-label' for='Date') Date:
+                            br
+                            input#Date(class='input-field' type='date' name='Date' placeholder='YYYY-MM-DD' tabindex='2')
+                        div(class='form-item req mt-2')
+                            label(class='input-label' for='Location') Location:
+                            br
+                            input#Location(class='input-field' type='text' name='Location' placeholder='i.e. Africa' tabindex="3")
+                        div(class='form-item req mt-2')
+                            label(class='input-label' for='introPara') Content:
+                            div(class='richEdit' data-name='Content' data-placeHolder='Tell me what you did.' data-tab='4' )
+                            input#Content(style='display: none;' data-req='true' type='text' name='Content')
+                        
+                        div(class='form-item req mt-2')
+                            span(class='input-label') Image Sets:
+                            br
+                            hr
+                            div#image-sets
+                            
+                            a#sets(class='btn' onclick='addImageSet()') Add Set
+                            input(type='number' class='d-none' name='set-count' value=0)
+                        
+                        div(class='form-item text-end mt-2')
+                            label(class='input-label check-label') Publish: 
+                                input(name='Publish' type='checkbox' class='d-none check-box')
+                                div
+                            
+                    
+                    div(class='w-100 text-end panel-end')
+                        button#submit(class='btn btn-light loader col-12 col-md-4') Add New Update
+        
+
+        
+
+        
+        

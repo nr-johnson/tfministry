@@ -1,0 +1,20 @@
+extends layout
+
+block head
+    link(rel="image_src" href=update.sets[0].images[0].url)
+    meta(property="og:image" content=update.sets[0].images[0].url)
+    meta(property='title' content=update.title)
+    meta(property='og:title' content=update.title)
+    meta(property='description' content=pageDescription)
+    meta(property='og:description' content=pageDescription)
+
+block content
+    div(class='container')
+        div(class='row')
+            div(class='col-12 col-md-8 mx-auto p-0')
+                div(class='return-chev')
+                     img(src='/images/bootstrap/chevron-left-brown.svg' alt="Bootstrap-chevron-left")
+                a(href='/updates') Return to Updates
+                
+        article(class='row mt-2')
+            include templates/update.pug

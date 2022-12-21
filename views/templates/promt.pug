@@ -1,0 +1,11 @@
+div#myPromt
+    div(class='promt-back')
+    div(class='promt-box')
+        div(class='row')
+            p#promtText(class='promt-text') Please Confirm
+        div(class='row mt-4')
+            div(class='col-6 text-start')
+                button#promtCancel(class='btn m-0 w-100' onclick='closePromt()') Cancel
+            div(class='col-6 text-end')
+                form#promtForm
+                    button#promtConfirm(class='btn btn-caution m-0 w-100') Confirm

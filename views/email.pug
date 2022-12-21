@@ -1,0 +1,32 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Contact Us Email
+    body(style='background-color: #E2E3D0;')
+        //- Email preheader text
+        div(style="display: none; max-height: 0; overflow: hidden; font-size: 5px;")
+            if values['Message']
+                | !{values['Message']}
+            else
+                = values['First-Name'] + ' ' + values['Last-Name']
+            | |
+        div#emailHeader(style='position: absolute; top: 0; left: 0; width: 100%; height: 40px; background-color: #6F5939;')
+            div(style='position: absolute; margin: 0 auto; top: 0;')
+                div(style='position: relative; height: 30px; width: 30px; border-radius: 50%; background-color: #6F5939; border: 2px solid #E2E3D0; overflow: hidden; padding: 6px;')
+                    img(style='height: 100%; width: 100%;' src='https://res.cloudinary.com/tfministry/image/upload/v1647205386/site-images/Logo.png')
+        div(style='width: 85%; margin: auto; padding:0 40px 40px 40px;')
+            p(style='font-size: 16pt;')
+                strong Form Type: 
+                = values['emailType'] 
+            hr
+            for key in keys.slice()
+                p
+                    strong= key
+                    | : 
+                    br
+                    | !{values[key]}
+                hr
+

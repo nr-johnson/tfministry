@@ -1,0 +1,78 @@
+div#gallery
+    div(class='gallery-cont' data-current=0)
+        hr
+        -let index = 0
+        for set in update.sets
+            section(class='row d-flex pt-0 pt-md-3 gal-set')
+                if set['caption']
+                    div(class='col-12 col-lg-10 col-xl-8 p-2 gal-cap')
+                        div
+                            | !{set['caption']}
+                for img in set.images
+                    div(class='col-4 col-sm-3 col-lg-2 p-2 gal-img')
+                        a(href='#myAlert' onclick='openSlide(event, this.parentNode.parentNode.parentNode.parentNode.children[1], ' + index + ')')
+                            div(class='img-cont')
+                                img(src=img.url)
+                    -index++
+            hr
+                    
+    
+    div(class='slide-show' data-update=update._id data-slide=0 data-cap=0)
+        div(class='slide-main')
+            div(class='slide-back' onclick='closeSlide(event, this.parentNode.parentNode)')
+            div(class='slide-content' ontouchstart='setTouch(event)' ontouchend='touchCloseSlide(event, this.parentNode.parentNode)')
+                div(class='slide-header row mx-auto')
+                    div(class='slide-close col-6 ms-auto text-end')
+                        a(href='#' onclick='closeSlide(event, this.parentNode.parentNode.parentNode.parentNode.parentNode)')
+                            img(src='/images/bootstrap/x-lg.svg' alt="Bootstrap-x-lg")
+                
+                div(class='slide-gal' ontouchstart='setTouch(event)' ontouchend='swipeSlide(event, this.parentNode.parentNode.parentNode)')
+                    -let began = true
+                    -let cap = 0
+                    for set in update.sets
+                        for img in set.images
+                            if began
+                                div(class='slide slide-img-cont col next active' data-cap=cap)
+                                    img(src=img.url)
+                                    -began = false
+                            else
+                                div(class='slide slide-img-cont col next' data-cap=cap)
+                                    img(src=img.url)
+                        -cap++
+
+                div(class='captions')
+                    -let first = true
+                    for set in update.sets
+                        if first
+                            div(class='slide-cap active')
+                                if set['caption']
+                                    | !{set.caption}
+                            -first = false
+                        else
+                            div(class='slide-cap')
+                                if set['caption']
+                                    | !{set.caption}
+                -let thisIndex = 0
+                div(class='slide-footer')
+                    for set in update.sets
+                        for img in set.images
+                            if thisIndex < 1
+                                div(class='slide-thumb active')
+                                    div(class='slide-thumb-square')
+                                        div(class='slide-thumb-img-cont')
+                                            a(href='#' onclick='openSlide(event, this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode, ' + thisIndex + ')')
+                                                img(src=img.url)
+                            else
+                                div(class='slide-thumb')
+                                    div(class='slide-thumb-square')
+                                        div(class='slide-thumb-img-cont')
+                                            a(href='#' onclick='openSlide(event, this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode, ' + thisIndex + ')')
+                                                img(src=img.url)
+                            -thisIndex++
+                
+                if thisIndex > 1
+                    div(class='slide-buttons')
+                        a(href='#' class='slide-but left' onclick='prevSlide(event, this.parentNode.parentNode.parentNode.parentNode)')
+                            img(src='/images/bootstrap/chevron-left.svg' alt="Bootstrap-chevron-left")
+                        a(href='#' class='slide-but right' onclick='nextSlide(event, this.parentNode.parentNode.parentNode.parentNode)')
+                            img(src='/images/bootstrap/chevron-right.svg' alt="Bootstrap-chevron-right")

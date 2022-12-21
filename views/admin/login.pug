@@ -1,0 +1,37 @@
+extends ../layout.pug
+
+block head 
+    title TFM | Login 
+
+block content 
+    section#form-main(class='container-fluid')
+        div(class='row')
+            div#form-main(class='col-md-6 col-lg-4 mx-auto px-0 panel form login')
+                form(class='w-100 h-100' action='/connect/validatelogin/y' method='POST' enctype="multipart/form-data" data-target='/connect/validatelogin/n' data-goal='/admin' onsubmit='submitForm(event, this)')
+                    div(class='p-4')
+                        header
+                            h2 Please Log In
+
+                        //- Form message
+                        if errors
+                            div#form-message(class='form-message err show')
+                                p(class='form-message-title') Oops...
+                                ul
+                                    for err in errors
+                                        li= err.error
+                        else if success
+                            div#form-message(class='form-message succ show')
+                                p(class='form-message-title')= success
+                        else
+                            div#form-message(class='form-message' )
+                        //- Form
+
+                        div(class='form-item req')
+                            label(class='input-label' for="Username") Username:
+                            input#name(class='input-field' type="text" name="Username" value=fields['Username'])
+                        div(class='form-item req')
+                            label(class='input-label' for="Password") Password:
+                            input#password(class='input-field' type="password" name="Password" value=fields['Password'])
+
+                    div(class='panel-end text-end')
+                        button(class='btn btn-submit loader col-12 col-md-4') Submit
