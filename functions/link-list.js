@@ -13,6 +13,7 @@ module.exports = (ops) => {
             {url: '/subscribe', name: "Subscribe", icon: 'envelope-plus-fill', id: 'subscribe'}
         ]
         // The two links that may or may not be added to the page.
+        let local = true
         let training = {url: '/training', name: 'Training', icon: 'pc-display-horizontal', id: 'training'}
         let admin = {url: '/admin', name: 'Admin', icon: 'gear-fill', id: 'admin'}
         
@@ -22,6 +23,7 @@ module.exports = (ops) => {
             ip = req.headers['x-forwarded-for'];
             let country = geoip.lookup(ip).code
             if(country != 'US' && country != 'CA') {
+                local = false
                 list.push(training)
             }
         }
@@ -29,6 +31,7 @@ module.exports = (ops) => {
         // If the user is logged in the Admin link is added to the array
         let loggedIn = await ops.isLoggedIn(req)
         if(loggedIn) {
+            local && list.push(training)
             list.push(admin)
         }
 

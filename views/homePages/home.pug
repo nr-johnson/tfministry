@@ -22,10 +22,12 @@ section#home(class='container w-100 home-page-section active')
                   div(class="vid-modal-content")
                     div(class="vid-iFrame")
                       iframe(src='https://www.youtube.com/embed/' + introData['Video-Code'] frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+              
               header(class='video-title mt-2')
-                a(href='https://www.youtube.com/watch?v=' + introData['Video-Code'] title='Watch on Youtube' target='_blank')
-                    h3= introData['Video-Title']
-                        img(class='link-icon' src='/images/bootstrap/box-arrow-up-right.svg' alt="Bootstrap-box-arrow-up-right")
+                if introData['Video-Title']
+                  a(href='https://www.youtube.com/watch?v=' + introData['Video-Code'] title='Watch on Youtube' target='_blank')
+                      h3= introData['Video-Title']
+                          img(class='link-icon' src='/images/bootstrap/box-arrow-up-right.svg' alt="Bootstrap-box-arrow-up-right")
                 a(href='https://www.youtube.com/channel/UC-IOvgPzpAmUECjKvwEHlEw' class='video-channel-link' target='_blank') Visit Our Youtube Channel
                     img(class='link-icon-small' src='/images/bootstrap/box-arrow-up-right.svg' alt="Bootstrap-box-arrow-up-right")
                 hr(class='d-md-none')
@@ -65,6 +67,7 @@ section#home(class='container w-100 home-page-section active')
                     | !{update['Content']}
             section
                 div(class='gallery-main')
+                    -let galIndex = 0
                     include ../templates/gallery.pug
     
     section(class='row w-100 mx-auto mt-2 pb-1 justify-content-center px-md-4')

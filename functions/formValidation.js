@@ -10,7 +10,7 @@ module.exports = function() {
             return new Promise(resolve => {
                 let errors = []
                 Object.keys(params).forEach(par => {
-                    if(data[par] == undefined && params[par].required) {
+                    if(par != 'files' && data[par] == undefined && params[par].required) {
                         errors.push({
                             field: par,
                             error: par.replace(/-/g, " ") + ' is required.'
@@ -106,20 +106,44 @@ module.exports = function() {
                 }
                 
                 if(params.files) {
-                    for(let index in params.files) {
-                    let fileReq = params.files[index]
-                    if(fileReq.required && !files[fileReq.prefix + '00'] && !files[fileReq.prefix + '00_orig']) {
-                            let string = 'At least ' + fileReq.required
-                            if(fileReq.required > 1) {
-                                string = string + ' images required.'
-                            } else {
-                                string = string + ' image required.'
+                    
+                    if (Array.isArray(params.files)) {
+                        for(let index in params.files) {
+                            let fileReq = params.files[index]
+                            if(fileReq.required && !files[fileReq.prefix + '00'] && !files[fileReq.prefix + '00_orig']) {
+                                let string = 'At least ' + fileReq.required
+                                if(fileReq.required > 1) {
+                                    string = string + ' images required.'
+                                } else {
+                                    string = string + ' image required.'
+                                }
+                                errors.push({
+                                    field: null,
+                                    error: string
+                                })
                             }
-                            errors.push({
-                                field: null,
-                                error: string
-                            })
-                    }
+                        }
+                    } else {
+                        if (params.files.required) {
+                            if (!files || files[params.files.name].size <= 0) {
+                                errors.push({
+                                    field: null,
+                                    error: 'Please attach required file(s).'
+                                })
+                            } else if (files.length < params.files.required) {
+                                errors.push({
+                                    field: null,
+                                    error: `A minimum of ${params.files.required} files are expected. Only ${files.length} were attached.`
+                                })
+                            } else if (params.files.type) {
+                                if (!files[params.files.name].originalFilename.includes(params.files.type)) {
+                                    errors.push({
+                                        field: null,
+                                        error: `Wrong filetype! A file with a type of ${params.files.type} is expected.`
+                                    })
+                                }
+                            }
+                        }
                     }
                 }
                 if(errors.length > 0) resolve(errors)

@@ -21,48 +21,5 @@ header#header(class='container-fluid')
                 else
                     for link in pages
                         a(class='nav-link link' data-page=link.id href=link.url)= link.name
-            
-
-            //- if url
-            //-     if url == '/'
-            //-         a(class="nav-link active" href="/") Home
-            //-         a(class='nav-link' href='/updates') Updates
-            //-         a(class='nav-link' href='/signup') Signup
-            //-     else if url =='/signup'
-            //-         a(class="nav-link" href="/") Home
-            //-         a(class='nav-link' href='/updates') Updates
-            //-         a(class='nav-link active' href='/signup') Signup
-            //-     else if url == '/updates'
-            //-         a(class="nav-link" href="/") Home
-            //-         a(class='nav-link active' href='/updates') Updates
-            //-         a(class='nav-link' href='/signup') Signup
-            //-     else 
-            //-         a(class="nav-link" href="/") Home
-            //-         a(class='nav-link' href='/updates') Updates
-            //-         a(class='nav-link' href='/signup') Signup
-            //- else
-            //-     a(class="nav-link" href="/") Home
-            //- if user
-            //-     if url != '/admin' && url != '/admin/login'
-            //-         a(class='nav-link' href='/admin') Admin
-            //-     else
-            //-         a(class='nav-link open' href='/admin') Admin
-
-    //- div#menuMobile(class='d-md-none')
-    //-     div#mobileToggle(class='ml-3 d-inline' style='z-index: 1;')
-    //-         div#mobileBut(class="mobileMen" onclick="toggleMobileMenu()")
-    //-             div(class="bar1")
-    //-             div(class="bar2")
-    //-             div(class="bar3")
-    //-     div#mobileMenBox(class='hiddenMen')
-    //-         div#mobileMenBack(onclick='toggleMobileMenu()')
-    //-         div#mobileMenList
-    //-             div#mobileMenListItems
-    //-                 a(class='btn btn-light w-100 mt-2' href='/') Home
-    //-                 a(class='btn btn-light w-100 mt-2' href="/updates") Updates
-    //-                 a(class='btn btn-light w-100 mt-2' href="/form/signup") Signup
-
-    //-                 if user
-    //-                     a(class='btn btn-light w-100 mt-2' href="/admin") Admin
 
     

@@ -7,7 +7,7 @@ section#updates(class='container w-100 home-page-section active mt-3')
             div(class='col-12 col-md-8 mx-auto text-end')
                 a(href='#updateArchive' onclick='openArchive(event)') View Updates Archive
         section#updates
-            for update in updates.slice(0,5)
+            for update, galIndex in updates.slice(0,5)
                 article(class='row mt-2')
                     div(class='col-12 col-md-8 mx-auto panel multiple')
                         div(class='p-4')

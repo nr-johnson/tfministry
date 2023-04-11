@@ -70,7 +70,6 @@ router.get('/logout', ops.authUser(), async function(req, res, next) {
     res.redirect('/admin/login')
 })
 
-
 // Routes below are for the admin site editing pages
 // -- Intro Pages
 router.get('/edit/site-intro', ops.authUser(), async function(req, res, next) {
@@ -103,12 +102,17 @@ router.get('/edit/site-intro', ops.authUser(), async function(req, res, next) {
 router.post('/update-intro/:redir', ops.authUser(), async function(req, res, next) {
     let form = new formidable.IncomingForm({multiples: true})
     form.parse(req, async function(err, fields, files) {
+
         let params = {
             'Title': {required: true},
             'Content': {required: true},
             'Video-Code': {mustLength: 11}
         }
+
+        !fields['Video-Title'] || fields['Video-Title'] == '' ? fields['Video-Title'] = null : null
+
         let errors = await req.validateForm(fields, params)
+
         if(errors) {
             if(req.params.redir == 'n') {
                 res.send({status: 'err', resp: errors})
@@ -118,13 +122,6 @@ router.post('/update-intro/:redir', ops.authUser(), async function(req, res, nex
                 res.redirect('/admin/edit/site-intro')
             }
         } else {
-            if(fields['Video-Code']) {
-                await ytdl.getInfo('https://www.youtube.com/watch?v=' + fields['Video-Code']).then(info => {
-                    fields['Video-Title'] = info.videoDetails.title
-                })
-            } else {
-                fields['Video-Code'] = null
-            }
             await ops.updateItem(req.db.db('tfm'), 'siteData', {name: "Site Intro"}, {$set: fields})
             if(req.params.redir == 'n') {
                 res.send({status: 'success', resp: 'Intro Updated!'})
@@ -167,11 +164,16 @@ router.get('/edit/training-intro', ops.authUser(), async function(req, res, next
 router.post('/update-training/:redir', ops.authUser(), async function(req, res, next) {
     let form = new formidable.IncomingForm({multiples: true})
     form.parse(req, async function(err, fields, files) {
+
         let params = {
             'Content': {required: true},
             'Video-Code': {mustLength: 11}
         }
+        
         let errors = await req.validateForm(fields, params)
+
+        !fields['Video-Title'] || fields['Video-Title'] == '' ? fields['Video-Title'] = null : null
+
         if(errors) {
             if(req.params.redir == 'n') {
                 res.send({status: 'err', resp: errors})
@@ -180,15 +182,7 @@ router.post('/update-training/:redir', ops.authUser(), async function(req, res, 
                 req.session.errors = errors
                 res.redirect('/admin/edit/training-intro')
             }
-        } else {
-            if(fields['Video-Code']) {
-                await ytdl.getInfo('https://www.youtube.com/watch?v=' + fields['Video-Code']).then(info => {
-                    fields['Video-Title'] = info.videoDetails.title
-                })
-            } else {
-                fields['Video-Code'] = null
-            }
-            
+        } else {            
             await ops.updateItem(req.db.db('tfm'), 'siteData', {name: "Training Intro"}, {$set: fields})
             if(req.params.redir == 'n') {
                 res.send({status: 'success', resp: 'Training Intro Updated!'})
@@ -256,7 +250,6 @@ router.post('/edit/update/:id/:redir', ops.authUser(), async function(req, res, 
             files: [{prefix: 'image-', required: 1}]
         }
         let errors = await req.validateForm(fields, params, files)
-        
         
         if(errors) {
             if(req.params.redir == 'n') {

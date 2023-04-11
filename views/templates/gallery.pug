@@ -1,19 +1,27 @@
-div#gallery
+div(id='Gallery' + galIndex)
     div(class='gallery-cont' data-current=0)
         hr
-        -let index = 0
+        -let imgIndex = 0
         for set in update.sets
-            section(class='row d-flex pt-0 pt-md-3 gal-set')
-                if set['caption']
-                    div(class='col-12 col-lg-10 col-xl-8 p-2 gal-cap')
-                        div
-                            | !{set['caption']}
-                for img in set.images
-                    div(class='col-4 col-sm-3 col-lg-2 p-2 gal-img')
-                        a(href='#myAlert' onclick='openSlide(event, this.parentNode.parentNode.parentNode.parentNode.children[1], ' + index + ')')
+            section(class='pt-0 pt-md-3 gal-set')
+                div(class='row')
+                    div(class='col-12 col-md-6 col-lg-4 mx-auto gal-img')
+                        a(href='#myAlert' onclick='openSlide(event, ' + galIndex + ',' + imgIndex + ')')
                             div(class='img-cont')
-                                img(src=img.url)
-                    -index++
+                                img(src=set.images[0].url)
+                if set['caption']
+                    div(class='row')
+                        div(class='col-12 col-md-11 col-lg-10 mx-auto p-2 gal-cap')
+                            div
+                                | !{set['caption']}
+                div(class='row justify-content-center')
+                    for img, thisIndex in set.images
+                        if thisIndex > 0
+                            div(class='col-4 col-sm-3 col-lg-2 p-2 gal-img')
+                                a(href='#myAlert' onclick='openSlide(event, ' + galIndex + ', ' + imgIndex + ')')
+                                    div(class='img-cont')
+                                        img(src=img.url)
+                        -imgIndex++
             hr
                     
     
@@ -60,13 +68,13 @@ div#gallery
                                 div(class='slide-thumb active')
                                     div(class='slide-thumb-square')
                                         div(class='slide-thumb-img-cont')
-                                            a(href='#' onclick='openSlide(event, this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode, ' + thisIndex + ')')
+                                            a(href='#' onclick='openSlide(event, ' + galIndex + ', ' + thisIndex + ')')
                                                 img(src=img.url)
                             else
                                 div(class='slide-thumb')
                                     div(class='slide-thumb-square')
                                         div(class='slide-thumb-img-cont')
-                                            a(href='#' onclick='openSlide(event, this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode, ' + thisIndex + ')')
+                                            a(href='#' onclick='openSlide(event, ' + galIndex + ', ' + thisIndex + ')')
                                                 img(src=img.url)
                             -thisIndex++
                 

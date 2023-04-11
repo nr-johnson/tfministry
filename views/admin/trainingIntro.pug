@@ -23,13 +23,19 @@ block content
                         else
                             div#form-message(class='form-message' )
 
-                        div(class='form-item')
-                            label(class='input-label' for='Video-Code') Video Code
-                            input#Video-Code(class='input-field narrow' type='text' name='Video-Code' placeholder="Example: x8l1uWNBFUY (Optional)" value=introData['Video-Code'])
                         div(class='form-item mt-2 req')
                             label(class='input-label' for='Content') Content
                             div#editor-container(class='richEdit' data-name='Content' data-placeHolder='Share your story.' data-tab='2' )
                             input#Content(style='display: none;' data-req='true' type='text' name='Content' value=introData['Content'])
+                        
+                        hr
+                        h4 Training Intro Video
+                        div(class='form-item')
+                            label(class='input-label' for='Video-Code') YouTube Code
+                            input#Video-Code(class='input-field narrow' type='text' name='Video-Code' placeholder="Example: x8l1uWNBFUY (Optional)" value=introData['Video-Code'])
+                        div(class='form-item mt-2')
+                            label(class='input-label' for='Video-Title') Title
+                            input#Video-Title(class='input-field narrow' type='text' name='Video-Title' value=introData['Video-Title'])
                         
                     div(class='w-100 panel-end text-end')
                         button(class='btn btn-light loader col-12 col-md-4') Update

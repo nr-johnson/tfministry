@@ -79,28 +79,28 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-app.use(async function(err, req, res, next) {
-    res.status(err.status || 500);
-    let links = req.linkList
-    if(req.originalUrl.toString().includes('target')) {
-        console.log('Error in app...')
-        res.render('appError', {
-            pages: links,
-            message: err.message,
-            error: err
-        });
-    } else {
-        console.log('Error out of app...')
-        res.render('error', {
-            pages: links,
-            message: err.message,
-            error: err
-        });
-    }
-    console.log(err.message)
-    console.log(req.originalUrl)
-    console.log(err.stack)
-});
+    app.use(async function(err, req, res, next) {
+        res.status(err.status || 500);
+        let links = req.linkList
+        if(req.originalUrl.toString().includes('target')) {
+            console.log('Error in app...')
+            res.render('appError', {
+                pages: links,
+                message: err.message,
+                error: err
+            });
+        } else {
+            console.log('Error out of app...')
+            res.render('error', {
+                pages: links,
+                message: err.message,
+                error: err
+            });
+        }
+        console.log(err.message)
+        console.log(req.originalUrl)
+        console.log(err.stack)
+    });
 }
 
 // production error handler

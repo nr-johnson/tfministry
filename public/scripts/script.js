@@ -249,7 +249,7 @@ async function submitForm(event, form, secure) {
         submit = await ajaxPost('POST', url, data)
     }
     
-
+    console.log('FORM ===')
     let response = JSON.parse(submit)
     if(response.status == 'err') {
         addErrors(response.resp) //Adds errors to page if server responds with form errors.
@@ -642,8 +642,10 @@ function cycleThumbOut(cycleThumbOut) {
     }
 }
 
-function openSlide(event, gallery, index) {
+function openSlide(event, galleryIndex, index) {
     event.preventDefault()
+    const gallery = document.querySelector('#Gallery' + galleryIndex).querySelector('.slide-show')
+
     let deskGal = gallery.querySelector('.slide-gal')
     let length = deskGal.children.length
     let deskCaps = gallery.querySelector('.captions').children
@@ -693,6 +695,7 @@ function openSlide(event, gallery, index) {
         }
         
     }
+    
     gallery.classList.add('open')
     scrollThumbToView(deskThumbs, deskThumbs.children[newIndex], newIndex)
     disableScroll()
@@ -860,4 +863,10 @@ function swipeSlide(event, slideShow) {
             nextSlide(event, slideShow)
         }
     }
+}
+
+function setFileName(input) {
+    const fileNameLabel = input.parentNode.querySelector('.file-name')
+    const fileName = input.files[0].name || 'Error!'
+    fileNameLabel.innerText = fileName
 }

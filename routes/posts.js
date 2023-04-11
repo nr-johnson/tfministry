@@ -13,14 +13,22 @@ function verifyCaptcha(token) {
         const cap = await axios.get(captchaUrl)
         const score = cap.data.score
 
-        if(score < 0.4) {
+        if (cap.data.success) {
+            if(score < 0.4) {
+                const err = {
+                    field: null,
+                    error: `Your Captcha score is too low.<br><a href="https://www.google.com/recaptcha/about/" target="_blank">Read about reCaptcha</a>`
+                }
+                resolve({ok: false, err: err})
+            } else {
+                resolve({ok: true})
+            }
+        } else {
             const err = {
                 field: null,
-                error: `Your Captcha score is too low.<br><a href="https://www.google.com/recaptcha/about/" target="_blank">Read about reCaptcha</a>`
+                error: `Error resolving Captcha. If this issue persists please contact the site administrator.`
             }
-            resolve({ok: false, err: err})
-        } else {
-            resolve({ok: true})
+            resolve({ ok: false, err })
         }
     })
 }
@@ -59,7 +67,7 @@ router.post('/contact/:redir', function(req, res, next) {
             let email = await ops.addToDatabase(req.db.db('tfm'), 'emails', [fields])
             let mailOptions = {
                 from: 'TFMinistry Contact Form <stoliver@globaltrainingnetwork.org>',
-                to: 'main.nrjohnson@gmail.com', // 'stoliver@globaltrainingnetwork.org',
+                to: 'stoliver@globaltrainingnetwork.org', //'main.nrjohnson@gmail.com',
                 subject: 'Message from: ' + fields['Name'],
                 html: ({path: req.emailURL + '/email/' + email.insertedIds['0']})
             };
@@ -130,7 +138,7 @@ router.post('/subscribe/:redir', function(req, res, next) {
             let email = await ops.addToDatabase(req.db.db('tfm'), 'emails', [info])
             let mailOptions = {
                 from: 'TFMinistry Subscribe Form <stoliver@globaltrainingnetwork.org>',
-                to: 'main.nrjohnson@gmail.com', //'stoliver@globaltrainingnetwork.org',
+                to: 'stoliver@globaltrainingnetwork.org', //'main.nrjohnson@gmail.com',
                 subject: 'New Subscriber!',
                 html: ({path: req.emailURL + '/email/' + email.insertedIds['0']})
             };
@@ -152,26 +160,13 @@ router.post('/training/:redir', function(req, res, next) {
     let form = new formidable.IncomingForm()
     form.parse(req, async function(err, fields, files) {
         let params = {
-            'First-Name': {required: true, minLength: 3},
-            'Last-Name': {required: true, minLength: 3},
-            'Email': {required: true, email: true},
-            'Country': {required: true},
-            'Phone-Number': {phone: true},
-            'Address-Line-1': {minLength: 3},
-            'Address-Line-2': {minLength: 3},
-            'City/Town': {minLength: 3},
-            'State': {minLength: 2},
-            'Zip-Code': {zip: true},
-            'Message': {minLength: 10},
-            relations: {
-                Address: [
-                    ['Address-Line-1', 'Address-Line-2', 'City/Town', 'State', 'Zip-Code'],
-                    ['Address-Line-1', 'City/Town', 'State', 'Zip-Code']
-                ]
-            }
+            files: {name: 'Training-Form', required: 1, type: ['docx']}
         }
 
-        let errors = await req.validateForm(fields, params)
+        let errors = await req.validateForm(fields, params, files)
+
+        console.log('ERRORS ===')
+        console.log(errors)
 
         if (fields.token) {
             const passed = await verifyCaptcha(fields.token)
@@ -180,7 +175,6 @@ router.post('/training/:redir', function(req, res, next) {
             }
         }
 
-        console.log(errors)
         let redir = req.params.redir
         if(errors) {
             if(redir == 'n') {
@@ -191,21 +185,16 @@ router.post('/training/:redir', function(req, res, next) {
                 res.redirect('/training')
             }
         } else {
-            let info = {}
-            Object.entries(fields).forEach((field) => {
-                const [key, value] = field;
-                if(value.length > 0) {
-                    info[key] = value
-                }
-            })
 
-            info.emailType = 'Subscription'
-            let email = await ops.addToDatabase(req.db.db('tfm'), 'emails', [info])
             let mailOptions = {
                 from: 'TFMinistry Training Form <stoliver@globaltrainingnetwork.org>',
-                to: 'main.nrjohnson@gmail.com', // 'stoliver@globaltrainingnetwork.org',
+                to: 'stoliver@globaltrainingnetwork.org', // 'main.nrjohnson@gmail.com',
                 subject: 'New Training Request',
-                html: ({path: req.emailURL + '/email/' + email.insertedIds['0']})
+                html: `<h1>New training request reveived!</h1>`,
+                attachments: [{
+                    filename: files['Training-Form'].originalFilename,
+                    path: files['Training-Form'].filepath
+                }]
             };
             
             await req.sendMail(mailOptions)

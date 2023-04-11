@@ -2,11 +2,9 @@
 
 The home webpage for the Toliver Family to share about what the Lord is doing through their lives.
 
-[Live Page](https://www.tfministry.net) (Not currently live, this will bring you to an old version of the webpage)
+[Live Page](https://tfministry.net)
 
 This is a Node.js app using Pug as the template engine.
-
-I created this as a way of helping my friend and the work he is doing to through Global Training Network.
 
 ---
 
