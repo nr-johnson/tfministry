@@ -9,14 +9,14 @@ const expressMongoDb = require('mongo-express-req');
 const cloudinary = require('cloudinary').v2;
 
 const getLinkList = require('./functions/link-list'); // My middleware | Builds links list for navbar
-// let forceSSL = require('./functions/forceSSL'); // My middlware | Forces HTTPS into URL
-const formValidation = require('./functions/formValidation')
-const emails = require('./functions/emails')
+const formValidation = require('./functions/formValidation') // Custom form validator
+const emails = require('./functions/emails') // Email related functions
 
 const ops = require('./functions/ops')
 
 require('dotenv').config()
 
+// Object storage configuration
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_NAME, 
   api_key: process.env.CLOUD_KEY, 
@@ -25,7 +25,6 @@ cloudinary.config({
 
 const mongoURL = `mongodb+srv://${process.env.MONGO_NAME}:${process.env.MONGO_KEY}@cluster0.xmwsg.mongodb.net/tfm?retryWrites=true&w=majority`
 
-
 const routes = require('./routes/index');
 const admin = require('./routes/admin');
 const target = require('./routes/target');
@@ -33,16 +32,10 @@ const connect = require('./routes/posts');
 
 const app = express();
 
-// app.use(forceSSL());
-
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -55,7 +48,6 @@ app.use(expressSession({
   store: MongoStore.create({ mongoUrl: mongoURL }),  
 }));
 app.use(expressMongoDb(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true}));
-
 
 app.use(getLinkList(ops))
 app.use(formValidation())
@@ -73,8 +65,6 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
-// error handlers
 
 // development error handler
 // will print stacktrace
