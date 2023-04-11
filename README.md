@@ -10,7 +10,7 @@ This is a Node.js app using Pug as the template engine.
 
 ## Site Features:
 - ### Single Page App:
-    This is a bit misleading as the whole app doesn't run off a single plage, but the main four pages (and admin when logged in) use the same HTML page and request data from the server using AJAX each time the client navigates. This provides a what I believe to be a superiorly smooth user experience.
+    This is a bit misleading as the whole app doesn't run off a single plage, but the main four pages (and admin when logged in) use the same HTML page and request data from the server using AJAX each time the client navigates. This provides what I believe to be a superior, smooth user experience.
 
 - ### Admin Area:
     A key feature the Tolivers desired was a way to easily add updates and change key sections of the page without having to make constant requests of me. So I created a password locked area with variouse forms that allow them to add photo updates and change the content on the `/home` and `/training` pages.
