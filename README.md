@@ -19,7 +19,7 @@ This is a Node.js app using Pug as the template engine.
     One page is only intended for non-U.S. citezens to view. The site checks the location of the user using their IP address and hides the `/training` page if the visitor is located in the U.S. or Canada. Note: This does not work if the visitor is using a VPN, even if the visitor is spoofing a U.S. IP.
 
 - ### Custom Gallery with Touch Screen Support:
-    I built a custom photo gallery viewer for the updates. I features captions that operate per the Toliver's requests, as well as swipeing actions when being viewed on a mobile device.
+    I built a custom photo gallery viewer for the updates. It features captions that operate per the Toliver's requests, as well as swiping actions when being viewed on a mobile device.
 
 - ### Other Features:
     Custom mobile app-like view when visiting from a mobile device.
